@@ -1,0 +1,14 @@
+.info{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 8px;
+    font-size:14px;
+    color: #fff;
+    background: rgba(0, 0, 0, .8);
+    border-radius: 5px;
+    z-index: 100;
+    max-width: 200px;
+    word-wrap: break-word;
+}
