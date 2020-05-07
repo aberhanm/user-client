@@ -1,0 +1,10 @@
+.my-list .spe .am-list-extra {
+    flex-basis: initial;
+  }
+.save{
+    position: fixed !important;
+    bottom: 100px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}

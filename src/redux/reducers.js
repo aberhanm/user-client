@@ -1,24 +1,30 @@
 import { combineReducers } from 'redux';
+import Cookie from 'js-cookie';
 
 import {
     AUTH_SUCCESS,
-    ERROR_MSG
+    ERROR_MSG,
+    LOGIN
 } from './action-types';
 
 const initUser = {
     username: '',
-    type: 0,
     user_id: '',
     msg: '',
-    redirect:''
+    redirect: '',
+    identity: ''
 }
 
 function user(state = initUser, action) {
     switch (action.type) {
         case AUTH_SUCCESS:
-            return {...action.data,redirect:'/login'}
+            return { ...action.data, redirect: '/login' }
         case ERROR_MSG:
-            return {...state,msg:action.data}
+            return { ...state, msg: action.data }
+        case LOGIN:
+            let { user_id, identity, username } = action.data
+            Cookie.set('user', { user_id, identity, username })
+            return { ...action.data, redirect: '/companyinfo' }
         default:
             return state
     }

@@ -15,7 +15,6 @@ class Register extends Component {
     render() {
         let { msg, redirect } = this.props.user
         if (redirect) {
-            Toast.success('注册成功,马上登录！', 1)
             return <Redirect to={redirect} ></Redirect>
         } else {
             return (
