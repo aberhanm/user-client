@@ -25,7 +25,6 @@ export default class RegisterForm extends Component {
 
     submit = () => {
         let { username, password, hasError, passinValid, unsurePass, identity, password2 } = this.state
-        console.log(this.state)
         if (hasError || passinValid || unsurePass) {
             Toast.info('Please check your enter')
             return false
@@ -72,7 +71,6 @@ export default class RegisterForm extends Component {
                
                 if(name==='password2'){
                     if(this.state.password===value){
-                        console.log('jkfh')
                         this.setState({ unsurePass: false })
                     }else{
                         this.setState({ unsurePass: true })

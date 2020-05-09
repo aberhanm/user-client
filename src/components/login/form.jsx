@@ -20,9 +20,7 @@ export default class LoginForm extends Component {
         Toast.loading('Loading...', 30, () => {
             console.log('Load complete !!!');
         });
-
         let { username, password, hasError, passValid } = this.state
-        console.log(this.state)
         if (hasError || passValid) {
             Toast.info('Please check your enter')
             return
