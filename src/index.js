@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import Cookie from 'js-cookie';
 
 import { Provider } from 'react-redux';
 
@@ -14,12 +15,16 @@ import Register from './containers/register/register';
 import Home from './containers/home/home';
 
 import Login from './containers/login/login';
-
+let user = Cookie.getJSON('user')
+let identity = user ? user.identity : null
 
 ReactDOM.render(
     <Provider store={store}>
         <Router>
             <Switch>
+                <Route exact path='/'>
+                    {identity !== 0 && identity !== 1 && identity !== undefined ? <Redirect to='/login' /> : <Redirect to='/main' />}
+                </Route>
                 <Route path='/register' component={Register}></Route>
                 <Route path='/login' component={Login}></Route>
                 <Route component={Home}></Route>

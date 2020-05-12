@@ -3,7 +3,8 @@ import ajax from '../api/http';
 import {
     AUTH_SUCCESS,
     ERROR_MSG,
-    LOGIN
+    LOGIN,
+    USERINFO
 } from './action-types';
 
 
@@ -11,6 +12,7 @@ import {
 const authSuccess = (user) => ({ type: AUTH_SUCCESS, data: user })
 const loginSuccess = (user) => ({ type: LOGIN, data: user })
 const errorMsg = (msg) => ({ type: ERROR_MSG, data: msg })
+const userdetail = (info) => ({ type: USERINFO, data: info })
 export const register = (user) => {
     let { username, password, identity } = user
     return dispatch => {
@@ -19,7 +21,7 @@ export const register = (user) => {
             if (result.code === 1) {
                 dispatch(authSuccess(result.data))
             } else {
-                dispatch(errorMsg(result.msg))
+                dispatch(errorMsg(result.data.msg))
             }
         })
     }
@@ -31,8 +33,20 @@ export const login = (user) => {
             if (result.data.code == 1) {
                 dispatch(loginSuccess(result.data))
             } else {
+                dispatch(errorMsg(result.data.msg))
+            }
+        })
+    }
+}
+export const userinfo = (info) => {
+    return dispatch => {
+        ajax('POST', '/users/userDetail', info).then(result => {
+            if (result.data.code == 1) {
+                dispatch(userdetail(info))
+            } else {
                 dispatch(errorMsg(result.msg))
             }
         })
+
     }
 }

@@ -1,5 +1,6 @@
 .my-list .spe .am-list-extra {
     flex-basis: initial;
+    
   }
 .save{
     position: fixed !important;
@@ -7,4 +8,16 @@
     left: 0;
     right: 0;
     margin: 0 auto;
+}
+.input{
+  font-size: 16px !important;
+}
+.input input{
+  text-align: right !important;
+  font-size: 16px !important;
+  color: #888 !important;
+}
+.input textarea{
+  font-size: 16px !important;
+  color: #888 !important;
 }
