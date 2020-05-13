@@ -16,7 +16,6 @@ class Login extends Component {
     componentWillUpdate() {
         Toast.hide();
     }
-
     render() {
         let { msg, redirect } = this.props.user
         if (redirect) {

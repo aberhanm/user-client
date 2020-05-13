@@ -22,9 +22,6 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
             <Switch>
-                <Route exact path='/'>
-                    {identity !== 0 && identity !== 1 && identity !== undefined ? <Redirect to='/login' /> : <Redirect to='/main' />}
-                </Route>
                 <Route path='/register' component={Register}></Route>
                 <Route path='/login' component={Login}></Route>
                 <Route component={Home}></Route>

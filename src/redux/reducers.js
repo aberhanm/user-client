@@ -5,7 +5,8 @@ import {
     AUTH_SUCCESS,
     ERROR_MSG,
     LOGIN,
-    USERINFO
+    USERINFO,
+    RESETUSER
 } from './action-types';
 
 const initUser = {
@@ -25,28 +26,16 @@ function user(state = initUser, action) {
             return { ...state, msg: action.data }
         case LOGIN:
             let { user_id, identity, username, isbeauty } = action.data
-            console.log(identity)
             Cookie.set('user', { user_id, identity, username, })
-            if (isbeauty) {
-                return { ...action.data, redirect: '/main' }
-            } else {
-                return { ...action.data, redirect: '/companyinfo' }
-            }
-
-        default:
-            return state
-    }
-}
-function info(state = { redirect: '' }, action) {
-    switch (action.type) {
+            return { ...action.data, redirect: '/' }
         case USERINFO:
-            return { ...action.info, redirect: '/main' }
+            return action.data
+        case RESETUSER:
+            return initUser
         default:
             return state
     }
 }
-
 export default combineReducers({
-    user,
-    info,
+    user
 })

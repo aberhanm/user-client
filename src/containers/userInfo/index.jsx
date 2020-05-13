@@ -6,25 +6,10 @@ import { Redirect } from 'react-router-dom';
 import { Button, NavBar, InputItem, TextareaItem, WingBlank, Toast, DatePicker, List, Picker, WhiteSpace } from 'antd-mobile';
 import { userinfo } from '../../redux/actions';
 
-
+import { formatDate, getAge } from '../../utils/common';
 import './style.css'
 import HeadSelector from '../../components/headSelector';
-function formatDate(date) {
-    /* eslint no-confusing-arrow: 0 */
-    const pad = n => n < 10 ? `0${n}` : n;
-    const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-    return dateStr;
-}
-function getAge(birth) {
-    let arr = birth.split('-')
-    let age = 0
-    let now = new Date()
-    age = now.getFullYear() - arr[0]
-    if (parseInt(arr[1]) <= (now.getMonth() + 1) && parseInt(arr[2]) <= now.getDate()) {
-        age += 1
-    }
-    return age
-}
+
 class UserInfo extends Component {
     constructor(props) {
         super(props)
@@ -78,9 +63,6 @@ class UserInfo extends Component {
         ]
         return (
             <List>
-                {
-                    this.props.info.redirect ? <Redirect to={this.props.info.redirect}></Redirect> : null
-                }
                 <NavBar>用户信息完善</NavBar>
                 <HeadSelector headselect={this.headselect}></HeadSelector>
                 <InputItem onChange={val => this.handelChange('nickname', val)} placeholder='请输入姓名' className='input'>姓名:</InputItem>
@@ -124,6 +106,6 @@ class UserInfo extends Component {
 }
 
 export default connect(
-    state => ({ info: state.info, user: state.user }),
+    state => ({ user: state.user }),
     { userinfo }
 )(UserInfo)

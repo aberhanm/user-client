@@ -4,7 +4,8 @@ import {
     AUTH_SUCCESS,
     ERROR_MSG,
     LOGIN,
-    USERINFO
+    USERINFO,
+    RESETUSER
 } from './action-types';
 
 
@@ -13,6 +14,7 @@ const authSuccess = (user) => ({ type: AUTH_SUCCESS, data: user })
 const loginSuccess = (user) => ({ type: LOGIN, data: user })
 const errorMsg = (msg) => ({ type: ERROR_MSG, data: msg })
 const userdetail = (info) => ({ type: USERINFO, data: info })
+const resetUser = () => ({ type: RESETUSER })
 export const register = (user) => {
     let { username, password, identity } = user
     return dispatch => {
@@ -44,9 +46,21 @@ export const userinfo = (info) => {
             if (result.data.code == 1) {
                 dispatch(userdetail(info))
             } else {
-                dispatch(errorMsg(result.msg))
+                dispatch(resetUser())
             }
         })
 
+    }
+}
+
+export const getuser = () => {
+    return dispatch => {
+        ajax('GET', '/users/getuser').then(result => {
+            if (result.data.code == 1) {
+                dispatch(userdetail(result.data.data))
+            } else {
+                dispatch(errorMsg(result.data.msg))
+            }
+        })
     }
 }

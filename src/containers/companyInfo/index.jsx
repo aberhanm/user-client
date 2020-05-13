@@ -3,16 +3,10 @@ import { connect } from 'react-redux';
 import Cookie from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { Button, NavBar, InputItem, TextareaItem, DatePicker, WingBlank, Toast, List, WhiteSpace } from 'antd-mobile';
-
+import { formatDate } from '../../utils/common';
 import './style.css'
 import HeadSelector from '../../components/headSelector';
 import { userinfo } from '../../redux/actions';
-function formatDate(date) {
-    /* eslint no-confusing-arrow: 0 */
-    const pad = n => n < 10 ? `0${n}` : n;
-    const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-    return dateStr;
-}
 class CompanyInfo extends Component {
     constructor(props) {
         super(props)
@@ -46,7 +40,7 @@ class CompanyInfo extends Component {
         let user_id = Cookie.getJSON('user').user_id
         let { head, company, desc, nickname, birth, mobile, email, address } = this.state
         if (head && company && desc && nickname && birth && mobile && email && address) {
-        
+
             this.props.userinfo({ head, company, desc, user_id, nickname, birth: formatDate(birth), mobile, email, address })
         } else {
             Toast.info('please check your enter!')
@@ -56,9 +50,6 @@ class CompanyInfo extends Component {
 
         return (
             <List>
-                {
-                    this.props.info.redirect ? <Redirect to={this.props.info.redirect}></Redirect> : null
-                }
                 <NavBar type='primary'>公司信息完善</NavBar>
                 <HeadSelector headselect={this.headselect}></HeadSelector>
                 <InputItem onChange={val => this.handelChange('company', val)} placeholder='请输入公司名称' className='input'>公司名称:</InputItem>
@@ -98,6 +89,6 @@ class CompanyInfo extends Component {
 }
 
 export default connect(
-    state => ({ info: state.info }),
+    state => ({ user: state.user }),
     { userinfo }
 )(CompanyInfo)

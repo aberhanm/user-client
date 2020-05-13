@@ -80,7 +80,6 @@ export default class RegisterForm extends Component {
                 this.setState({ passinValid: true })
             }
         }
-        // console.log(this.state)
     }
     render() {
         let {username,password,password2, userType, identity, hasaccount,hasError,passinValid,unsurePass } = this.state
