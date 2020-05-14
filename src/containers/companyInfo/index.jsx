@@ -40,51 +40,49 @@ class CompanyInfo extends Component {
         let user_id = Cookie.getJSON('user').user_id
         let { head, company, desc, nickname, birth, mobile, email, address } = this.state
         if (head && company && desc && nickname && birth && mobile && email && address) {
-
             this.props.userinfo({ head, company, desc, user_id, nickname, birth: formatDate(birth), mobile, email, address })
         } else {
             Toast.info('please check your enter!')
         }
     }
     render() {
+            return (
+                <List>
+                    <NavBar type='primary'>公司信息完善</NavBar>
+                    <HeadSelector headselect={this.headselect}></HeadSelector>
+                    <InputItem onChange={val => this.handelChange('company', val)} placeholder='请输入公司名称' className='input'>公司名称:</InputItem>
+                    <InputItem onChange={val => this.handelChange('nickname', val)} placeholder='请输入CEO' className='input'>CEO:</InputItem>
+                    <InputItem onChange={val => this.handelChange('mobile', val)} placeholder='请输入联系电话' className='input'>联系电话:</InputItem>
+                    <InputItem onChange={val => this.handelChange('email', val)} placeholder='请输入公司邮箱' className='input'>公司邮箱:</InputItem>
+                    <DatePicker
+                        mode="date"
+                        title=""
+                        extra="选择时间"
+                        value={this.state.birth}
+                        onChange={val => this.handelChange('birth', val)}
+                    >
+                        <List.Item arrow="horizontal">成立时间:</List.Item>
+                    </DatePicker>
+                    <InputItem onChange={val => this.handelChange('address', val)} placeholder='请输入公司地址' className='input'>公司地址:</InputItem>
+                    <TextareaItem
+                        title="公司介绍:"
+                        autoHeight
+                        labelNumber={5}
+                        onChange={val => this.handelChange('desc', val)}
+                        className='input'
+                    />
+                    <WhiteSpace></WhiteSpace>
+                    <WhiteSpace></WhiteSpace>
+                    <WhiteSpace></WhiteSpace>
+                    <WhiteSpace></WhiteSpace>
+                    <WingBlank>
+                        <Button type='primary' onClick={this.saveInfo}>保存</Button>
+                    </WingBlank>
+                    <WhiteSpace></WhiteSpace>
+                    <WhiteSpace></WhiteSpace>
 
-        return (
-            <List>
-                <NavBar type='primary'>公司信息完善</NavBar>
-                <HeadSelector headselect={this.headselect}></HeadSelector>
-                <InputItem onChange={val => this.handelChange('company', val)} placeholder='请输入公司名称' className='input'>公司名称:</InputItem>
-                <InputItem onChange={val => this.handelChange('nickname', val)} placeholder='请输入CEO' className='input'>CEO:</InputItem>
-                <InputItem onChange={val => this.handelChange('mobile', val)} placeholder='请输入联系电话' className='input'>联系电话:</InputItem>
-                <InputItem onChange={val => this.handelChange('email', val)} placeholder='请输入公司邮箱' className='input'>公司邮箱:</InputItem>
-                <DatePicker
-                    mode="date"
-                    title=""
-                    extra="选择时间"
-                    value={this.state.birth}
-                    onChange={val => this.handelChange('birth', val)}
-                >
-                    <List.Item arrow="horizontal">成立时间:</List.Item>
-                </DatePicker>
-                <InputItem onChange={val => this.handelChange('address', val)} placeholder='请输入公司地址' className='input'>公司地址:</InputItem>
-                <TextareaItem
-                    title="公司介绍:"
-                    autoHeight
-                    labelNumber={5}
-                    onChange={val => this.handelChange('desc', val)}
-                    className='input'
-                />
-                <WhiteSpace></WhiteSpace>
-                <WhiteSpace></WhiteSpace>
-                <WhiteSpace></WhiteSpace>
-                <WhiteSpace></WhiteSpace>
-                <WingBlank>
-                    <Button type='primary' onClick={this.saveInfo}>保存</Button>
-                </WingBlank>
-                <WhiteSpace></WhiteSpace>
-                <WhiteSpace></WhiteSpace>
-
-            </List>
-        )
+                </List>
+            )
     }
 }
 

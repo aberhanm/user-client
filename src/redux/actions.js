@@ -43,7 +43,11 @@ export const login = (user) => {
 export const userinfo = (info) => {
     return dispatch => {
         ajax('POST', '/users/userDetail', info).then(result => {
+            console.log(result)
             if (result.data.code == 1) {
+                if (result.data.org_id) {
+                    info['org_id'] = result.data.org_id
+                }
                 dispatch(userdetail(info))
             } else {
                 dispatch(resetUser())

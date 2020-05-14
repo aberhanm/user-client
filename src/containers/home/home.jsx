@@ -20,6 +20,7 @@ class Home extends Component {
     render() {
         //1.没登录过，跳转login
         let cookie = Cookie.getJSON('user')
+        console.log(this.props.user)
         if (!cookie || !cookie.user_id) {
             return <Redirect to='/login'></Redirect>
         }
@@ -33,8 +34,9 @@ class Home extends Component {
             if (path === '/') {
                 if (user.isbeauty) {
                     return user.identity === 0 && user.identity !== undefined ? <Redirect to='/user/main' /> : <Redirect to='/company/main' />
+                } else {
+                    return user.identity === 0 && user.identity !== undefined ? <Redirect to='/userinfo' /> : <Redirect to='/companyinfo' />
                 }
-                return user.identity === 0 && user.identity !== undefined ? <Redirect to='/userinfo' /> : <Redirect to='/companyinfo' />
             }
         }
         return (

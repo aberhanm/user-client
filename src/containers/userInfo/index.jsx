@@ -61,6 +61,10 @@ class UserInfo extends Component {
             { label: '男', value: 1 },
             { label: '女', value: 0 }
         ]
+        console.log(this.props.user,'kkk')
+        if (this.props.user.isbeauty) {
+            return <Redirect to='/user/main'></Redirect>
+        }
         return (
             <List>
                 <NavBar>用户信息完善</NavBar>

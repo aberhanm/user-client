@@ -29,6 +29,7 @@ function user(state = initUser, action) {
             Cookie.set('user', { user_id, identity, username, })
             return { ...action.data, redirect: '/' }
         case USERINFO:
+            ////kkjugypf
             return action.data
         case RESETUSER:
             return initUser
