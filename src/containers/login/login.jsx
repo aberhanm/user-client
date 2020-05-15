@@ -18,15 +18,13 @@ class Login extends Component {
     }
     render() {
         let { msg, redirect } = this.props.user
+        console.log(this.props)
         if (redirect) {
             // Toast.success('注册成功,马上登录！', 1)
             return <Redirect to={redirect} ></Redirect>
         } else {
             return (
                 <div>
-                    {
-                        msg ? <Info info={msg}></Info> : ''
-                    }
                     <NavBar
                         mode='dark'
                         rightContent={[

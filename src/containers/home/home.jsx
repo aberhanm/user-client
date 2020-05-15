@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, NavBar, List, InputItem, TextareaItem } from 'antd-mobile';
+import { Button, NavBar, List, InputItem, TextareaItem, Toast } from 'antd-mobile';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CompanyInfo from '../companyInfo/index';
@@ -16,11 +16,11 @@ class Home extends Component {
     componentDidMount() {
         //4.获取用户信息，登录过有cookie但是没有user,重新请求实现自动登录
         this.props.getuser()
+        Toast.hide()
     }
     render() {
         //1.没登录过，跳转login
         let cookie = Cookie.getJSON('user')
-        console.log(this.props.user)
         if (!cookie || !cookie.user_id) {
             return <Redirect to='/login'></Redirect>
         }
@@ -32,11 +32,7 @@ class Home extends Component {
             //3.判断如果是路由‘/’，如果信息以完善跳转相应页面，没有静茹信息完善页面
             let path = this.props.location.pathname
             if (path === '/') {
-                if (user.isbeauty) {
-                    return user.identity === 0 && user.identity !== undefined ? <Redirect to='/user/main' /> : <Redirect to='/company/main' />
-                } else {
-                    return user.identity === 0 && user.identity !== undefined ? <Redirect to='/userinfo' /> : <Redirect to='/companyinfo' />
-                }
+                return user.identity === 0 && user.identity !== undefined ? <Redirect to='/userinfo' /> : <Redirect to='/companyinfo' />
             }
         }
         return (
@@ -44,8 +40,12 @@ class Home extends Component {
                 <Switch>
                     <Route path="/companyinfo" component={CompanyInfo}></Route>
                     <Route path='/userinfo' component={UserInfo}></Route>
-                    <Route path='/user/main' component={Client}></Route>
-                    <Route path='/company/main' component={Company}></Route>
+                    <Route path='/userDash' component={Client}></Route>
+
+                    <Route path='/orgDash' component={Company}></Route>
+
+                    {/* <Route exact path='/user/main' component={Client}></Route>
+                    <Route exact path='/company/main' component={Company}></Route> */}
                 </Switch>
             </div>
         )

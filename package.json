@@ -45,8 +45,9 @@
     "customize-cra": "^0.9.1",
     "less": "^3.11.1",
     "less-loader": "^6.1.0",
-    "react-app-rewired": "^2.1.5",
-    "style-loader": "^1.2.0"
+    "react-app-rewired": "^2.1.6",
+    "style-loader": "^1.2.0",
+    "svg-sprite-loader": "^5.0.0"
   },
   "babel": {
     "presets": [

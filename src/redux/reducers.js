@@ -25,7 +25,7 @@ function user(state = initUser, action) {
         case ERROR_MSG:
             return { ...state, msg: action.data }
         case LOGIN:
-            let { user_id, identity, username, isbeauty } = action.data
+            let { user_id, identity, username } = action.data
             Cookie.set('user', { user_id, identity, username, })
             return { ...action.data, redirect: '/' }
         case USERINFO:

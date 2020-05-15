@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { Switch, Route, Redirect, NavLink,Link } from 'react-router-dom';
+import SvgIcon from '../../../components/SvgIcon';
 
 import '../../../assets/style.less'
 class Client extends Component {
@@ -21,8 +22,20 @@ class Client extends Component {
           <Icon key="0" type="search" style={{ marginRight: '16px' }} onClick={this.searchPosition} />,
           <Icon key="1" type="ellipsis" />,
         ]}>{user.position}</NavBar>
-        <div className='nav-footer'>
-          s
+        <div className='nav-footer' >
+          <Link to='/orgDash' className='nav-foot-item'>
+            <span><SvgIcon name='position'></SvgIcon></span>
+            <span>职位</span>
+          </Link>
+          <Link to='/orgDash/find' className='nav-foot-item'>
+            <span><SvgIcon name='find'></SvgIcon></span>
+            <span>发现</span></Link>
+          <Link to='/orgDash/message' className='nav-foot-item'>
+            <span><SvgIcon name='message'></SvgIcon></span>
+            <span>消息</span></Link>
+          <Link to='/orgDash/my' className='nav-foot-item'>
+            <span><SvgIcon name='my'></SvgIcon></span>
+            <span>我的</span></Link>
         </div>
       </div>
     );

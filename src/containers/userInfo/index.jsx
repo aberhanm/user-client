@@ -42,12 +42,9 @@ class UserInfo extends Component {
 
     }
     saveInfo = () => {
-        Toast.loading('Loading...', 30, () => {
-            console.log('Load complete !!!');
-        });
-        setTimeout(() => {
-            Toast.hide()
-        }, 2000);
+        // Toast.loading('Loading...', 30, () => {
+        //     console.log('Load complete !!!');
+        // });
         let user_id = Cookie.getJSON('user').user_id
         let { position, head, desc, birth, gender, gratuated, exprience, salary, nickname } = this.state
         if (position && head && desc && birth && gender && gratuated && exprience && salary, nickname) {
@@ -61,9 +58,8 @@ class UserInfo extends Component {
             { label: '男', value: 1 },
             { label: '女', value: 0 }
         ]
-        console.log(this.props.user,'kkk')
-        if (this.props.user.isbeauty) {
-            return <Redirect to='/user/main'></Redirect>
+        if(this.props.user.isbeauty){
+            return <Redirect to='/userDash'></Redirect>
         }
         return (
             <List>

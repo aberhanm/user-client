@@ -48,7 +48,7 @@ export const userinfo = (info) => {
                 if (result.data.org_id) {
                     info['org_id'] = result.data.org_id
                 }
-                dispatch(userdetail(info))
+                dispatch(userdetail(result.data))
             } else {
                 dispatch(resetUser())
             }
