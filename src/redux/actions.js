@@ -40,6 +40,11 @@ export const login = (user) => {
         })
     }
 }
+export const reset=()=>{
+    return dispatch=>{
+        dispatch(resetUser())
+    }
+}
 export const userinfo = (info) => {
     return dispatch => {
         ajax('POST', '/users/userDetail', info).then(result => {

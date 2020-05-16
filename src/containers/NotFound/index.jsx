@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-export default class MY extends Component {
+
+export default class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,7 +10,7 @@ export default class MY extends Component {
 
   render() {
     return (
-    <div>fkdgkl</div>
+     <div>notfond</div>
     );
   }
 }

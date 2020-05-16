@@ -9,7 +9,6 @@ module.exports = override(
         libraryName: 'antd-mobile',
         style: 'css',
     }),
-
     addWebpackModuleRule({
         test: /\.svg$/,
         include: resolve('src/assets/icons'),
