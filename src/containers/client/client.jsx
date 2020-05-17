@@ -1,28 +1,52 @@
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import { connect } from 'react-redux';
+
+import ListItem from './listitem/index';
+import { getList } from '../../redux/actions';
 import { Switch, Route, Redirect, NavLink, Link } from 'react-router-dom';
 
+import './style.css'
 class Client extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
-
+  componentDidMount() {
+    this.props.getList()
+  }
   render() {
-    let { user } = this.props
+    let { user, list } = this.props
+    if (list.length) {
+      list.forEach(element => {
+        if (element.category) {
+          element.category = element.category.split(',')
+        }
+
+      });
+    }
+
+    console.log(list)
     return (
       <div>
         <NavBar type='primary' rightContent={[
           <Icon key="0" type="search" style={{ marginRight: '16px' }} onClick={this.searchPosition} />,
         ]}>{user.position}</NavBar>
-        client
+        {
+          !list.length ? <div>暂无更多职位！</div> : null
+        }
+        <div>
+          {
+            list.map((item, key) => (<ListItem key={key} item={item}></ListItem>))
+          }
+        </div>
       </div>
     );
   }
 }
 
 export default connect(
-  state => ({ user: state.user })
+  state => ({ user: state.user, list: state.list }),
+  { getList }
 )(Client)

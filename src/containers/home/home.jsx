@@ -11,6 +11,7 @@ import Company from '../company/company';
 import Message from '../message';
 import Find from '../find';
 import MY from '../my';
+import Publish from '../publish';
 import NotFound from '../NotFound';
 import Footer from '../../components/Footer';
 
@@ -51,14 +52,13 @@ class Home extends Component {
             selected: 'my-selected'
         }]
     }
-    componentDidMount() {
+    componentWillMount() {
         //4.获取用户信息，登录过有cookie但是没有user,重新请求实现自动登录
         this.props.getuser()
         Toast.hide()
     }
  
     render() {
-        console.log(this.props)
         //1.没登录过，跳转login
         let cookie = Cookie.getJSON('user')
         if (!cookie || !cookie.user_id) {
@@ -66,7 +66,7 @@ class Home extends Component {
         }
         let { user } = this.props
         //2.如果state-user中没有数据，登录过，返回null
-        if (!user.id) {
+        if (!user.user_id) {
             return null
         } else {
             //3.判断如果是路由‘/’，如果信息以完善跳转相应页面，没有静茹信息完善页面
@@ -92,6 +92,7 @@ class Home extends Component {
                     {
                         navlist.map((nav, key) => <Route path={nav.path} component={nav.component} key={key}></Route>)
                     }
+                    <Route path='/publish' component={Publish}></Route>
                     <Route component={NotFound}></Route>
                 </Switch>
                 {

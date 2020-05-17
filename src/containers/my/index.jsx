@@ -16,27 +16,36 @@ class MY extends Component {
     this.state = {
     };
   }
+  componentDidMount(){
+    Toast.hide()
+  }
   singOut = () => {
     Toast.loading('loading...')
     setTimeout(() => {
       this.props.reset()
       Toast.hide()
-    },1000)
+    }, 1000)
 
     Cookie.remove('user')
   }
+  publish = () => {
+    this.props.history.push('/publish')
+  }
 
   render() {
-    console.log(this.props)
-
     let { user } = this.props
     return (
       <div>
         <div className='main-back'>
           <div className='information'>
             <img src={require(`../../assets/images/headshot/${user.head}.jpg`)} className='headshot' alt="" />
-            <span className='name'>{user.nickname}<span className='po'>{user.username}</span></span>
+            <span className='name'>{user.nickname}<span className='po'>{
+              user.identity === 1 ? user.position : user.username}</span></span>
           </div>
+          {
+            user.identity === 1 ? <div className='publish' onClick={this.publish}>发布职位</div> : null
+          }
+
         </div>
         <List renderHeader={() => '个人资料'} className="my-list">
           {user.gratuated ? <List.Item extra={user.gratuated}>毕业院校</List.Item> : null}

@@ -6,7 +6,11 @@ import {
     ERROR_MSG,
     LOGIN,
     USERINFO,
-    RESETUSER
+    RESETUSER,
+    GETLIST,
+    PUNLISH_SUCCESS,
+    PUNLISH_ERROR,
+    GETLISTFAILE
 } from './action-types';
 
 const initUser = {
@@ -15,18 +19,18 @@ const initUser = {
     msg: '',
     redirect: '',
     identity: '',
-    isbeauty: 0
+    isbeauty: ''
 }
 
 function user(state = initUser, action) {
     switch (action.type) {
         case AUTH_SUCCESS:
-            return { ...action.data, redirect: '/login' }
+            Cookie.set('user', { user_id: action.data.user_id })
+            return { ...action.data, redirect: '/' }
         case ERROR_MSG:
             return { ...state, msg: action.data }
         case LOGIN:
-            let { user_id, identity, username } = action.data
-            Cookie.set('user', { user_id, identity, username, })
+            Cookie.set('user', { user_id: action.data.user_id })
             return { ...action.data, redirect: '/' }
         case USERINFO:
             ////kkjugypf
@@ -37,6 +41,31 @@ function user(state = initUser, action) {
             return state
     }
 }
+
+function list(state = [], action) {
+    switch (action.type) {
+        case GETLIST:
+            return action.data
+        case GETLISTFAILE:
+            return { ...state, msg: action.data }
+        default:
+            return state
+    }
+}
+
+function pubStatus(state = { isPublished: false, msg: '' }, action) {
+    switch (action.type) {
+        case PUNLISH_SUCCESS:
+            return action.data
+        case PUNLISH_ERROR:
+            return { ...state, msg: action.data }
+        default:
+            return state
+    }
+}
+
 export default combineReducers({
-    user
+    user,
+    list,
+    pubStatus
 })

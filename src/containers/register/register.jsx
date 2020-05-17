@@ -17,7 +17,7 @@ class Register extends Component {
         return (
             <div>
                 {
-                    redirect ? <Redirect to='/login' ></Redirect> : null
+                    redirect ? <Redirect to='/' ></Redirect> : null
                 }
                 <NavBar
                     mode='dark'

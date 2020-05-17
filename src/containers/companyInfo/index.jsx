@@ -19,6 +19,7 @@ class CompanyInfo extends Component {
             mobile: '',
             email: '',
             address: '',
+            position: ''
         }
     }
     headselect = (head) => {
@@ -35,9 +36,9 @@ class CompanyInfo extends Component {
         // });
         console.log(this.state)
         let user_id = Cookie.getJSON('user').user_id
-        let { head, company, desc, nickname, birth, mobile, email, address } = this.state
-        if (head && company && desc && nickname && birth && mobile && email && address) {
-            this.props.userinfo({ head, company, desc, user_id, nickname, birth: formatDate(birth), mobile, email, address })
+        let { head, company, desc, nickname, birth, mobile, email, address,position } = this.state
+        if (head && company && desc && nickname && birth && mobile && email && address && position) {
+            this.props.userinfo({position, head, company, desc, user_id, nickname, birth: formatDate(birth), mobile, email, address })
         } else {
             Toast.info('please check your enter!')
         }
@@ -51,7 +52,8 @@ class CompanyInfo extends Component {
                 <NavBar type='primary'>公司信息完善</NavBar>
                 <HeadSelector headselect={this.headselect}></HeadSelector>
                 <InputItem onChange={val => this.handelChange('company', val)} placeholder='请输入公司名称' className='input'>公司名称:</InputItem>
-                <InputItem onChange={val => this.handelChange('nickname', val)} placeholder='请输入CEO' className='input'>CEO:</InputItem>
+                <InputItem onChange={val => this.handelChange('nickname', val)} placeholder='请输入姓名' className='input'>姓名:</InputItem>
+                <InputItem onChange={val => this.handelChange('position', val)} placeholder='请输入职位' className='input'>职位:</InputItem>
                 <InputItem onChange={val => this.handelChange('mobile', val)} placeholder='请输入联系电话' className='input'>联系电话:</InputItem>
                 <InputItem onChange={val => this.handelChange('email', val)} placeholder='请输入公司邮箱' className='input'>公司邮箱:</InputItem>
                 <DatePicker
