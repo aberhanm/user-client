@@ -31,10 +31,6 @@ class CompanyInfo extends Component {
         })
     }
     saveInfo = () => {
-        // Toast.loading('Loading...', 30, () => {
-        //     console.log('Load complete !!!');
-        // });
-        console.log(this.state)
         let user_id = Cookie.getJSON('user').user_id
         let { head, company, desc, nickname, birth, mobile, email, address,position } = this.state
         if (head && company && desc && nickname && birth && mobile && email && address && position) {

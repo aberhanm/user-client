@@ -62,7 +62,7 @@ export default class LoginForm extends Component {
         this.setState({ singUp: true })
     }
     render() {
-        let { userType, user, singUp } = this.state
+        let { singUp } = this.state
         return (
             <div className='form'>
                 {

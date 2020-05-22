@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { List, InputItem, Button, WhiteSpace, Radio, WingBlank, Toast } from 'antd-mobile';
-import { NavLink, Redirect } from 'react-router-dom';
-import Info from '../Info/index';
+import {  Redirect } from 'react-router-dom';
 
 import './form.css'
 const ListItem = List.Item

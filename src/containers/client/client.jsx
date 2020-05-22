@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import ListItem from './listitem/index';
 import { getList } from '../../redux/actions';
-import { Switch, Route, Redirect, NavLink, Link } from 'react-router-dom';
 
 import './style.css'
 class Client extends Component {
@@ -13,21 +12,19 @@ class Client extends Component {
     this.state = {
     };
   }
-  componentDidMount() {
-    this.props.getList()
+  componentWillMount() {
+    this.props.getList(this.props.user.identity)
   }
+ 
   render() {
     let { user, list } = this.props
     if (list.length) {
       list.forEach(element => {
-        if (element.category) {
+        if (element.category && typeof element.category === 'string') {
           element.category = element.category.split(',')
         }
-
       });
     }
-
-    console.log(list)
     return (
       <div>
         <NavBar type='primary' rightContent={[
@@ -38,9 +35,10 @@ class Client extends Component {
         }
         <div>
           {
-            list.map((item, key) => (<ListItem key={key} item={item}></ListItem>))
+            list.map((item, key) => (<ListItem key={key} item={item} ></ListItem>))
           }
         </div>
+        <div style={{ height: '80px', background: '#e0e0e0' }}></div>
       </div>
     );
   }

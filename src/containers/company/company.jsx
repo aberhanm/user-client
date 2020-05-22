@@ -1,29 +1,36 @@
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
-import { Switch, Route, NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import Position from '../company/position';
-// import Find from '../company/find';
-// import Msg from '../company/message';
-// import MY from '../company/my';
+import { getList } from '../../redux/actions'
+import ListItem from './ListItem';
 class Company extends Component {
   constructor(props) {
     super(props);
     this.state = {
     };
   }
+  componentWillMount() {
+    this.props.getList(this.props.user.identity)
+  }
   searchPosition = () => {
     console.log('search')
   }
   render() {
     console.log(this.props)
-    let { user } = this.props
+    let { user, list } = this.props
     return (
       <div>
         <NavBar type='primary' rightContent={[
           <Icon key="0" type="search" style={{ marginRight: '16px' }} onClick={this.searchPosition} />
         ]}>{user.company}</NavBar>
-       company
+        {
+          !list.length ? <div>暂无更多职位！</div> : null
+        }
+        <div>
+          {
+            list.map((item, key) => (<ListItem key={key} item={item}></ListItem>))
+          }
+        </div>
       </div>
 
     );
@@ -31,5 +38,6 @@ class Company extends Component {
 }
 
 export default connect(
-  state => ({ user: state.user })
+  state => ({ user: state.user, list: state.list }),
+  { getList }
 )(Company)

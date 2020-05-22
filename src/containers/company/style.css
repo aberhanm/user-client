@@ -1,0 +1,43 @@
+.item{
+    border-bottom: 6px solid #e0e0e0;
+    padding: 8px 0;
+}
+.h3{
+    margin: 0;
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+}
+.salary{
+    font-size: 16px;
+    color: #108ee9;
+}
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.category span{
+    background: #e0e0e0;
+    padding: 3px 8px;
+    margin-right: 8px; 
+    font-size: 12px;
+    color: #888;
+}
+.h3 img{
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+    margin-right: 5px;
+}
+span{
+    text-align: center;
+    border-radius: 5px;
+    margin-right: 12px; 
+}
+.self-desc{
+    padding: 10px 0px;
+    /* overflow: hidden; text-overflow: ellipsis;white-space: nowrap; */
+    color: #888;
+    font-size: 14px;
+}

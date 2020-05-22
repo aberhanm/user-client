@@ -47,7 +47,7 @@ class UserInfo extends Component {
         // });
         let user_id = Cookie.getJSON('user').user_id
         let { position, head, desc, birth, gender, gratuated, exprience, salary, nickname } = this.state
-        if (position && head && desc && birth && gender && gratuated && exprience && salary, nickname) {
+        if (position && head && desc && birth && gender && gratuated && exprience && salary && nickname) {
             this.props.userinfo({ position, head, desc, user_id, gender, gratuated, exprience, salary, nickname, birth: formatDate(birth), age: getAge(formatDate(birth)) })
         } else {
             Toast.info('please check your enter!')

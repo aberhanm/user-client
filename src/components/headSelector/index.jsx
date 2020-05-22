@@ -34,7 +34,7 @@ export default class HeadSelector extends Component {
             <List renderHeader={() => (
                 <p className='head'>{listhead}
                 {
-                    icon? <img src={icon} className='icon'></img>:null
+                    icon? <img src={icon} className='icon' alt=''></img>:null
                 }</p>
             )} className="my-list">
                 <Grid data={this.headList} columnNum={5} activeStyle={false} onClick={this.handelchange} />

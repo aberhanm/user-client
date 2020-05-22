@@ -48,7 +48,6 @@ class Publish extends Component {
         this.props.history.replace('/my')
     }
     render() {
-        console.log(this.props)
         let { pubStatus } = this.props
         if (pubStatus.ispublished) {
             return <Redirect to='/my'></Redirect>

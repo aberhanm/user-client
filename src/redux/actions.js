@@ -1,5 +1,5 @@
 import ajax from '../api/http';
-
+import io from 'socket.io-client';
 import {
     AUTH_SUCCESS,
     ERROR_MSG,
@@ -12,7 +12,15 @@ import {
     GETLISTFAILE
 } from './action-types';
 
+function initIO() {
+    if (!io.socket) {
+        io.socket = io('ws://localhost:8080')
+        io.socket.on('receiveMsg', function (data) {
+            console.log('接受消息：', data);
 
+        })
+    }
+}
 //授权成功同步ACTION
 const authSuccess = (user) => ({ type: AUTH_SUCCESS, data: user })
 const loginSuccess = (user) => ({ type: LOGIN, data: user })
@@ -54,7 +62,6 @@ export const reset = () => {
 export const userinfo = (info) => {
     return dispatch => {
         ajax('POST', '/users/userDetail', info).then(result => {
-            console.log(result)
             if (result.data.code === 1) {
                 dispatch(userdetail(result.data.data))
             } else {
@@ -81,6 +88,9 @@ export const publish = (data) => {
         ajax('POST', '/users/publishPosition', data).then(result => {
             if (result.data.code === 1) {
                 dispatch(pubSuccess(result.data))
+                setTimeout(() => {
+                    dispatch(pubError('init'))
+                }, 1000);
             } else {
                 dispatch(pubError(result.data.msg))
             }
@@ -90,12 +100,21 @@ export const publish = (data) => {
 
 export const getList = (identity) => {
     return dispatch => {
-        ajax('GET', '/users/getHomelist').then(result => {
-            if (result.data.code == 1) {
+        ajax('GET', `/users/getHomelist?identity=${identity}`).then(result => {
+            if (result.data.code === 1) {
                 dispatch(getListinfo(result.data.data))
             } else {
                 dispatch(getinfofail(result.data.msg))
             }
         })
+    }
+}
+
+export const sendMessage = (data) => {
+    return dispatch => {
+        initIO()
+        io.socket.emit('sendMsg',data)
+        console.log(data);
+
     }
 }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Button, NavBar, List, InputItem, TextareaItem, Toast, Icon } from 'antd-mobile';
+import {Toast } from 'antd-mobile';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Cookie from 'js-cookie';
 
-import { connect, useStore } from 'react-redux';
+import { connect } from 'react-redux';
 import CompanyInfo from '../companyInfo/index';
 import UserInfo from '../userInfo/index';
 import Client from '../client/client';
@@ -14,8 +14,10 @@ import MY from '../my';
 import Publish from '../publish';
 import NotFound from '../NotFound';
 import Footer from '../../components/Footer';
+import Chat from '../chat/chat';
 
 import { getuser } from '../../redux/actions';
+
 
 class Home extends Component {
     constructor(props) {
@@ -42,8 +44,8 @@ class Home extends Component {
             path: '/message',
             component: Message,
             text: '消息',
-            icon: 'find',
-            selected: 'find-selected'
+            icon: 'message',
+            selected: 'message-selected'
         }, {
             path: '/my',
             component: MY,
@@ -57,14 +59,17 @@ class Home extends Component {
         this.props.getuser()
         Toast.hide()
     }
- 
+
     render() {
         //1.没登录过，跳转login
         let cookie = Cookie.getJSON('user')
+        let { user } = this.props
         if (!cookie || !cookie.user_id) {
             return <Redirect to='/login'></Redirect>
         }
-        let { user } = this.props
+        if (user.msg === '请登录') {
+            return <Redirect to='/login'></Redirect>
+        }
         //2.如果state-user中没有数据，登录过，返回null
         if (!user.user_id) {
             return null
@@ -93,6 +98,7 @@ class Home extends Component {
                         navlist.map((nav, key) => <Route path={nav.path} component={nav.component} key={key}></Route>)
                     }
                     <Route path='/publish' component={Publish}></Route>
+                    <Route path='/privateChat/:id' component={Chat}></Route>
                     <Route component={NotFound}></Route>
                 </Switch>
                 {

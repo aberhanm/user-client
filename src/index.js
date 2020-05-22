@@ -1,23 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Cookie from 'js-cookie';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './redux/store';
 import 'antd-mobile/dist/antd-mobile.css';
 import './assets/style.less'
 
-
 import Register from './containers/register/register';
-
 import Home from './containers/home/home';
-
 import Login from './containers/login/login';
-let user = Cookie.getJSON('user')
-let identity = user ? user.identity : null
 
+import '../src/socket/socket_io'
 ReactDOM.render(
     <Provider store={store}>
         <Router>

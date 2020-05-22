@@ -4,21 +4,17 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Logo from '../../components/Logo/index';
-import Info from '../../components/Info/index';
 import LoginForm from '../../components/login/form';
 import { login } from '../../redux/actions';
 
 
 class Login extends Component {
-    constructor(props) {
-        super(props)
-    }
+
     componentWillUpdate() {
         Toast.hide();
     }
     render() {
-        let { msg, redirect } = this.props.user
-        console.log(this.props)
+        let { redirect } = this.props.user
         if (redirect) {
             // Toast.success('注册成功,马上登录！', 1)
             return <Redirect to={redirect} ></Redirect>

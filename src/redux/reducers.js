@@ -58,6 +58,9 @@ function pubStatus(state = { isPublished: false, msg: '' }, action) {
         case PUNLISH_SUCCESS:
             return action.data
         case PUNLISH_ERROR:
+            if (action.data === 'init') {
+                return { isPublished: false, msg: '' }
+            }
             return { ...state, msg: action.data }
         default:
             return state

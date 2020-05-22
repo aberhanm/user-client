@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { TabBar } from 'antd-mobile';
 
 import '../../assets/style.css';
@@ -14,8 +14,8 @@ class Footer extends Component {
     }
 
     render() {
-        let { user, navlist } = this.props
-        navlist=navlist.filter(item=>!item.hide)
+        let { navlist } = this.props
+        navlist = navlist.filter(item => !item.hide)
         let { pathname } = this.props.location
         return (
 
@@ -27,7 +27,7 @@ class Footer extends Component {
                         selected={pathname === item.path}
                         icon={<SvgIcon name={item.icon}></SvgIcon>}
                         selectedIcon={<SvgIcon name={item.selected}></SvgIcon>}
-                        onPress={()=>this.props.history.replace(item.path)}
+                        onPress={() => this.props.history.replace(item.path)}
                     >
                     </TabBar.Item>)
                 }
