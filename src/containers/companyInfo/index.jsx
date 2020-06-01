@@ -78,7 +78,6 @@ class CompanyInfo extends Component {
                 </WingBlank>
                 <WhiteSpace></WhiteSpace>
                 <WhiteSpace></WhiteSpace>
-
             </List>
         )
     }

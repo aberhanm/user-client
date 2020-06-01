@@ -14,3 +14,18 @@ export function getAge(birth) {
     }
     return age
 }
+export function getSearchObj(str) {
+    if (str) {
+        let newstr = str.replace('?', '')
+        let parm = newstr.split('&')
+        console.log(parm)
+        let obj = {}
+        for (let i = 0; i < parm.length; i++) {
+            let p = parm[i].split('=')
+            obj[p[0]] = p[1]
+        }
+        return obj
+    } else {
+        return false
+    }
+}

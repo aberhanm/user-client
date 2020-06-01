@@ -64,6 +64,7 @@ class MY extends Component {
         <WingBlank> <Button type='warning' onClick={() => alert('操作', '确认退出？', [
           { text: '取消', onPress: () => console.log('取消') },
           { text: '确认', onPress: () => this.singOut() }])}>退出登录</Button></WingBlank>
+            <WhiteSpace /><WhiteSpace /><WhiteSpace /><WhiteSpace />
       </div>
     );
   }

@@ -10,7 +10,9 @@ import {
     GETLIST,
     PUNLISH_SUCCESS,
     PUNLISH_ERROR,
-    GETLISTFAILE
+    GETLISTFAILE,
+    GETCHATLIST,
+    GETCHAT
 } from './action-types';
 
 const initUser = {
@@ -66,9 +68,27 @@ function pubStatus(state = { isPublished: false, msg: '' }, action) {
             return state
     }
 }
+const initChat = {
+    users: {},
+    msgs: [],
+    unread: 0
+}
+
+function chat(state = initChat, action) {
+    switch (action.type) {
+        case GETCHATLIST:
+            let { users, msgs } = action.data
+            return { users, msgs, unread: 0 }
+        case GETCHAT:
+            return { users: state.users, msgs: [...state.msgs, action.data], unread: 0 }
+        default:
+            return state
+    }
+}
 
 export default combineReducers({
     user,
     list,
-    pubStatus
+    pubStatus,
+    chat
 })

@@ -11,9 +11,9 @@ class ListItem extends React.Component {
     }
 
     render() {
-        let {item}=this.props
+        let { item } = this.props
         return (
-            <div className='item' onClick={() => this.props.history.push(`/privateChat/${item.recruiter_id}`)}>
+            <div className='item' onClick={() => this.props.history.push(`/privateChat/${item.recruiter_id}?title=${item.recruiter}&d=0`)}>
                 <WingBlank>
                     <div className='title'>
                         <h3 className='h3'>{item.position}</h3>

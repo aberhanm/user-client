@@ -9,16 +9,29 @@ import {
     GETLIST,
     PUNLISH_SUCCESS,
     PUNLISH_ERROR,
-    GETLISTFAILE
+    GETLISTFAILE,
+    GETCHATLIST,
+    GETCHAT
 } from './action-types';
 
-function initIO() {
+function initIO(dispatch, user_id,flag) {
+    console.log(flag)
     if (!io.socket) {
+        console.log(user_id,'initIO')
         io.socket = io('ws://localhost:8080')
         io.socket.on('receiveMsg', function (data) {
-            console.log('接受消息：', data);
-
+            if (data.from == user_id || data.to == user_id) {
+                dispatch(getchat(data))
+            }
         })
+    }
+}
+async function getmsgs(dispatch) {
+    let response = await ajax('GET', '/getchatList')
+    let result = response.data.data
+    if (response.data.code === 1) {
+        let { users, msgs } = result
+        dispatch(getChatList({ users, msgs }))
     }
 }
 //授权成功同步ACTION
@@ -31,6 +44,8 @@ const getListinfo = (list) => ({ type: GETLIST, data: list })
 const getinfofail = (msg) => ({ type: GETLISTFAILE, data: msg })
 const pubSuccess = (info) => ({ type: PUNLISH_SUCCESS, data: info })
 const pubError = (msg) => ({ type: PUNLISH_ERROR, data: msg })
+const getChatList = ({ users, msgs }) => ({ type: GETCHATLIST, data: { users, msgs } })
+const getchat = (msg) => ({ type: GETCHAT, data: msg })
 export const register = (user) => {
     let { username, password, identity } = user
     return dispatch => {
@@ -47,6 +62,7 @@ export const login = (user) => {
     return dispatch => {
         ajax('POST', '/login', user).then((result) => {
             if (result.data.code === 1) {
+                getmsgs(dispatch)
                 dispatch(loginSuccess(result.data))
             } else {
                 dispatch(errorMsg(result.data.msg))
@@ -76,6 +92,9 @@ export const getuser = () => {
     return dispatch => {
         ajax('GET', '/users/getuser').then(result => {
             if (result.data.code === 1) {
+                console.log(result.data.data)
+                initIO(dispatch, result.data.data.id,'get')
+                getmsgs(dispatch)
                 dispatch(userdetail(result.data.data))
             } else {
                 dispatch(errorMsg(result.data.msg))
@@ -112,9 +131,8 @@ export const getList = (identity) => {
 
 export const sendMessage = (data) => {
     return dispatch => {
-        initIO()
-        io.socket.emit('sendMsg',data)
-        console.log(data);
-
+        initIO(dispatch, data.from)
+        getmsgs(dispatch)
+        io.socket.emit('sendMsg', data)
     }
 }

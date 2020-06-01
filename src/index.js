@@ -11,7 +11,6 @@ import Register from './containers/register/register';
 import Home from './containers/home/home';
 import Login from './containers/login/login';
 
-import '../src/socket/socket_io'
 ReactDOM.render(
     <Provider store={store}>
         <Router>

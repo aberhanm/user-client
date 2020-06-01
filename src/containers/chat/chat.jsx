@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { WingBlank, NavBar, TextareaItem,Icon } from 'antd-mobile';
-import {sendMessage} from '../../redux/actions';
+import { WingBlank, NavBar, TextareaItem, Icon } from 'antd-mobile';
+import { sendMessage } from '../../redux/actions';
+import { getSearchObj } from '../../utils/common';
 import '../../assets/style.css'
 class Chat extends Component {
     constructor(props) {
@@ -12,84 +13,71 @@ class Chat extends Component {
     }
 
     sendMsg = () => {
-        
-        let from=this.props.user.user_id
-        let to=this.props.match.params.id
-        let {msg}=this.state
-        if(!msg.trim()){
+
+        let from = this.props.user.user_id
+        let to = this.props.match.params.id
+        let { msg } = this.state
+        if (!msg.trim()) {
             return false
-        }else{
-            this.props.sendMessage({from,to,msg})
+        } else {
+            this.props.sendMessage({ from, to, msg })
         }
-        this.setState({msg:''})
+        this.setState({ msg: '' })
     }
 
     render() {
+        let { user } = this.props
+        let { users, msgs } = this.props.chat
+        let parmas = getSearchObj(this.props.location.search)
+        console.log(this.props)
+        let from = user.id
+        let to = this.props.match.params.id
+        let c_id = [from, to].sort().join('_')
+        let lists = msgs.filter(item => item.chat_id === c_id)
+        console.log(lists)
+        let from_head = users[from] ? require(`../../assets/images/headshot/${users[from].head}.jpg`) : null
+        let to_head = users[to] ? require(`../../assets/images/headshot/${users[to].head}.jpg`) : null
         return (
             <div>
-                <NavBar className='chat-nav' 
-                icon={<Icon type="left" />}
-                onLeftClick={() => this.props.history.replace('/')}>聊天</NavBar>
+                <NavBar className='chat-nav'
+                    icon={<Icon type="left" />}
+                    onLeftClick={() => this.props.history.go(-1)}>{parmas.title}</NavBar>
                 <WingBlank>
-                    <div className='chat-msg-list'>
-                        <div className='chat-from'>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                            <p>和各位好给给各五个饿哦饿哦规划换个后果 给公共号人人京公网古人过热欧冠怀柔韩国如恶化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                        </div>
-                        <div className='chat-from'>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                            <p>过热给，我过热过热红日好感额</p>
-                        </div>
-                        <div className='chat-to'>
-                            <p>和各位好给给各五个饿哦饿哦规划换个后果 给公共号人人京公网古人过热欧冠怀柔韩国如恶化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                        </div>
-                        <div className='chat-to'>
-                            <p>化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                        </div>
-                        <div className='chat-to'>
-                            <p>化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                        </div> <div className='chat-to'>
-                            <p>化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                        </div> <div className='chat-to'>
-                            <p>化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                        </div> <div className='chat-to'>
-                            <p>化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                        </div> <div className='chat-to'>
-                            <p>化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                        </div>  <div className='chat-from'>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                            <p>和各位好给给各五个饿哦饿哦规划换个后果 给公共号人人京公网古人过热欧冠怀柔韩国如恶化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                        </div>  <div className='chat-from'>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                            <p>和各位好给给各五个饿哦饿哦规划换个后果 给公共号人人京公网古人过热欧冠怀柔韩国如恶化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                        </div>  <div className='chat-from'>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                            <p>和各位好给给各五个饿哦饿哦规划换个后果 给公共号人人京公网古人过热欧冠怀柔韩国如恶化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                        </div>  <div className='chat-from'>
-                            <img src={require('../../assets/images/headshot/头像1.jpg')} alt="" className='chathead' />
-                            <p>和各位好给给各五个饿哦饿哦规划换个后果 给公共号人人京公网古人过热欧冠怀柔韩国如恶化ue过热给，我过热过热红日好感额【我国额公告鞋刚刚uege胡工会任务</p>
-                        </div>
+                    <div className='chat-msg-list' ref={list => this.list = list} >
+                        {
+                            lists.map(item => {
+                                //我发给对方
+                                if (parseInt(item.from) === from) {
+                                    return (
+                                        <div className='chat-to' key={item.id}>
+                                            <p>{item.content}</p>
+                                            <img src={from_head} alt="" className='chathead' />
+                                        </div>
+                                    )
+                                } else {
+                                    //对方发给我
+                                    return (
+                                        <div className='chat-from' key={item.id}>
+                                            <img src={to_head} alt="" className='chathead' />
+                                            <p>{item.content}</p>
+                                        </div>
+                                    )
+                                }
+                            })
+                        }
                     </div>
                 </WingBlank>
                 <div className='chat-input'>
                     <div className='chat-text'>
                         <TextareaItem value={this.state.msg} placeholder='请输入内容' autoHeight onChange={val => this.setState({ msg: val })}></TextareaItem>
                     </div>
-
                     <span type='primary' className='send' onClick={this.sendMsg}>发送</span>
                 </div>
-            </div>
+            </div >
         );
     }
 }
 export default connect(
-    state => ({user:state.user}),
-    {sendMessage}
+    state => ({ user: state.user, chat: state.chat }),
+    { sendMessage }
 )(Chat)
